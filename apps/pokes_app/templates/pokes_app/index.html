@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pokes</title>
+	</head>
+	<body>
+		<h4>Welcome, {{request.session.name}}!</h4>
+		<a href="/logout">Logout</a>
+		<p> {{my_pokeCount}} people poked you! </p>
+		People who have poked you
+		<p> {% for name in allPokes %}
+				<h5>{{mypokes.giver.name}} </h5>
+			{% endfor %} </p>
+			{{pokes.giver.name}}
+
+		<p> People you may want to poke: </p>
+		<table>
+			<tr>
+				<td>Name</td>
+				<td>Alias</td>
+				<td>Email Address </td>
+				<td>Poke History</td>
+				<td>Action</td>
+			</tr>
+			{% for user in users %}
+			<tr>
+				<td>{{user.name}}</td>
+				<td>{{user.alias}}</td>
+				<td>{{user.email}} </td>
+				<td> {{pokes.giver.name}}</td>
+				<td>
+					<form action="/givePoke/{{user.id}}" method="post">
+					{% csrf_token %}
+						<input type="hidden" name="receiver" value="{{user.id}}">
+						<input type="submit" name="submit" value="Poke!">
+					</form>
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+
+	</body>
+</html>
